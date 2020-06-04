@@ -25,8 +25,8 @@ app.get('/dumbnames/:id', (req, res) => {
 
 app.patch('/dumbnames/update/:id/:name', (req, res) => {
   DumbName
-    .findByIdAndUpdate(req.params.id, { name: req.params.name }, { new: true });
-    .then(dumbname => res.send(dumbname))
+    .findByIdAndUpdate(req.params.id, { name: req.params.name }, { new: true })
+    .then(dumbname => res.send(dumbname));
 });
 
 // app.delete('/dumbnames/:id', (req, res) => {

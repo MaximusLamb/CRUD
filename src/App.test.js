@@ -85,11 +85,12 @@ describe('app routes', () => {
     });
 
     return request(app)
-      .get(`/dumbnames/${newName._id}`)
+      // .get(`/dumbnames/${newName._id}`)
+      .patch(`/dumbnames/update/${newName._id}/${ newName.name = 'Steven Stevenson' }`)
       .then(res => {
         expect(res.body).toEqual({
           _id: newName.id,
-          name: 'Slim Timmy',
+          name: 'Steven Stevenson',
           likes: 3,
           __v: 0
         });
