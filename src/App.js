@@ -1,26 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+const express = require('express');
+const app = express();
+const DumbName = require('./Shareable-BackEnd/DumbName');
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+app.use(require(('cors')()));
 
-export default App;
+app.post('/dumbnames', (req, res) => {
+  DumbName
+    .create(req.body)
+    .then(dumbname => res.send(dumbname));
+});
+
+app.get('/dumbnames', (req, res) => {
+  DumbName
+    .find()
+    .then(dumbnames => res.send(dumbnames));
+});
+
+app.get('/dumbnames/:id', (req, res) => {
+  DumbName
+    .find()
+    .then(dumbnames => res.send(dumbnames));
+});
+
+app.delete('/dumbnames/:id', (req, res) => {
+  DumbName
+    .
+
+})
+
+module.exports = app;
