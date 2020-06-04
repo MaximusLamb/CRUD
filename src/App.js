@@ -29,10 +29,11 @@ app.patch('/dumbnames/update/:id/:name', (req, res) => {
     .then(dumbname => res.send(dumbname));
 });
 
-// app.delete('/dumbnames/:id', (req, res) => {
-//   DumbName
-//     .
+app.delete('/dumbnames/:id', (req, res) => {
+  DumbName
+    .findByIdAndDelete(req.params.id)
+    .then(dumbname => res.send(dumbname));
 
-// })
+});
 
 module.exports = app;

@@ -78,14 +78,13 @@ describe('app routes', () => {
 
   });
 
-  it('updates a characters name', async() => {
+  it('updates a dumbname', async() => {
     const newName = await DumbName.create({
       name: 'Slim Timmy',
       likes: 3
     });
 
     return request(app)
-      // .get(`/dumbnames/${newName._id}`)
       .patch(`/dumbnames/update/${newName._id}/${ newName.name = 'Steven Stevenson' }`)
       .then(res => {
         expect(res.body).toEqual({
@@ -96,5 +95,23 @@ describe('app routes', () => {
         });
       });
 
+  });
+
+  it('deletes a dumbname', async() => {
+    const newName = await DumbName.create({
+      name: 'Slim Timmy',
+      likes: 3
+    });
+
+    return request(app)
+      .delete(`/dumbnames/${newName._id}`)
+      .then(res => {
+        expect(res.body).toEqual({
+          _id: newName.id,
+          name: 'Slim Timmy',
+          likes: 3,
+          __v: 0
+        });
+      });
   });
 });
