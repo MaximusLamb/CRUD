@@ -1,8 +1,9 @@
+/* eslint-disable no-unreachable */
 const mongoose = require('mongoose');
 const { MongoMemoryServer } = require('mongodb-memory-server');
 const request = require('supertest');
-const app = require('./App');
-const DumbName = require('./Shareable-BackEnd/DumbName');
+const app = require('../lib/App');
+const DumbName = require('../lib/DumbName');
 
 describe('app routes', () => {
   const mongo = new MongoMemoryServer();
@@ -79,16 +80,22 @@ describe('app routes', () => {
   });
 
   it('updates a dumbname', async() => {
-    const newName = await DumbName.create({
+    const oldName = await DumbName.create({
       name: 'Slim Timmy',
       likes: 3
     });
 
+    const newName = {
+      name: 'Steven Stevenson'
+    };
+
     return request(app)
-      .patch(`/dumbnames/update/${newName._id}/${ newName.name = 'Steven Stevenson' }`)
+    
+      .patch(`/dumbnames/update/${oldName._id}`)
+      .send(newName)
       .then(res => {
         expect(res.body).toEqual({
-          _id: newName.id,
+          _id: oldName.id,
           name: 'Steven Stevenson',
           likes: 3,
           __v: 0
